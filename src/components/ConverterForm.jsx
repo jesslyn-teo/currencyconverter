@@ -2,8 +2,8 @@ import { useState } from "react";
 import CurrencySelection from "./CurrencySelection";
 
 const ConverterForm = () => {
-    const [fromCurrency, setFromCurrency] = useState("SGD");
-    const [toCurrency,setToCurrency] = useState("SGD");
+  const [fromCurrency, setFromCurrency] = useState("SGD");
+  const [toCurrency, setToCurrency] = useState("SGD");
 
   return (
     <form className="form">
@@ -15,7 +15,10 @@ const ConverterForm = () => {
       <div className="form-group form-group-currency">
         <div className="form-section">
           <label className="form-label">From</label>
-          <CurrencySelection selectedCurrency={fromCurrency}/>
+          <CurrencySelection
+            selectedCurrency={fromCurrency}
+            handleCurrency={(e) => setFromCurrency(e.target.value)}
+          />
         </div>
 
         <div className="swap-icon">
@@ -33,7 +36,10 @@ const ConverterForm = () => {
 
         <div className="form-section">
           <label className="form-label">To</label>
-          <CurrencySelection selectedCurrency={toCurrency}/>
+          <CurrencySelection
+            selectedCurrency={toCurrency}
+            handleCurrency={(e) => setToCurrency(e.target.value)}
+          />
         </div>
       </div>
 
