@@ -1,11 +1,131 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
 
 /* base styles */
-body {
-  font-family: Poppins, sans-serif;
+* {
   margin: 0;
-  font-size: 1.5em;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, sans-serif;
+}
+
+body {
+  font-size: 1em;
   text-align: center;
   background: #f8e7eb;
   color: #d63384; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#root {
+  width: 100%;
+}
+
+.converter {
+  background-color: #ffd6e0;
+  margin: 0 auto;
+  padding: 40px;
+  border-radius: 8px;
+  border: 2px solid #f4c6c3; 
+  backdrop-filter: blur(30px);
+  max-width: 450px;
+}
+
+.converter .form {
+  margin: 45px;
+}
+
+.converter .form-group {
+  display: flex;
+  margin-bottom:30px;
+  flex-direction: column;
+}
+
+.converter .form-group .form-label {
+  display: block;
+  margin-bottom: 9px;
+}
+
+.converter .form-group .form-input {
+  outline: none;
+  min-height: 45px;
+  padding: 0 15px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #f4c6c3;
+}
+
+.form .form-group-currency {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-group-currency .currency-select {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  min-height: 45px;
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #f4c6c3;
+  width: auto;
+}
+
+.form-group-currency .currency-select img {
+  width: 25px;
+  height: auto;
+}
+
+.form-group-currency .currency-select .currency-dropdown {
+  outline: none;
+  border: none;
+  background: none;
+  font-weight: 500;
+  padding: 0 5px;
+  flex-grow: 1;
+}
+
+.form-group-currency .swap-icon {
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  border: 1px solid #f4c6c3;
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.6);
+  margin: 0 10px; 
+  margin-top: 25px;
+  transition: 0.2s ease;
+}
+
+.form-group-currency .swap-icon:hover {
+  background: rgba(255, 255, 255);
+}
+
+.form .submit-button {
+  width: 100%;
+  min-height: 50px;
+  border-radius: 6px;
+  border: 1px solid #f4c6c3;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form .submit-button:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.form .result {
+  color:#d63384;
+  text-align: center;
+  margin-top: 30px;
+  padding: 25px 0;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.6);
 }
