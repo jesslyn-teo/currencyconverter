@@ -50,7 +50,8 @@ const ConverterForm = () => {
           type="number"
           className="form-input"
           value={amount}
-          onChange={setAmount}
+          onChange={(e) => setAmount(e.target.value)}
+          min="0"
           required
         />
       </div>
