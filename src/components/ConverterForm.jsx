@@ -1,15 +1,47 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CurrencySelection from "./CurrencySelection";
 
 const ConverterForm = () => {
+  const [amount, setAmount] = useState(100);
   const [fromCurrency, setFromCurrency] = useState("SGD");
   const [toCurrency, setToCurrency] = useState("SGD");
+  const [result, setResult] = useState("");
+
+  // used to handle currency swap
+  const handleCurrencySwap = () => {
+    setFromCurrency(toCurrency);
+    setToCurrency(fromCurrency);
+  };
+
+  // form submission for currency rates
+  const getExchangeRates = async () => {
+    const API_KEY = import.meta.env.VITE_API_KEY;
+    const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${fromCurrency}/${toCurrency}`;
+
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) throw Error(`Something went wrong, please try again`);
+
+      const data = await response.json();
+      const rate = (data.conversion_rate * amount).toFixed(2);
+      setResult(`${amount} ${fromCurrency} = ${rate} ${toCurrency}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    getExchangeRates();
+  };
+
+  useEffect(() => getExchangeRates, []);
 
   return (
-    <form className="form">
+    <form className="form" onSubmit={handleFormSubmit}>
       <div className="form-group">
         <label className="form-label">Enter Amount: </label>
-        <input type="number" className="form-input" required />
+        <input type="number" className="form-input" value={amount} onChange={setAmount} required />
       </div>
 
       <div className="form-group form-group-currency">
@@ -21,7 +53,7 @@ const ConverterForm = () => {
           />
         </div>
 
-        <div className="swap-icon">
+        <div className="swap-icon" onClick={handleCurrencySwap}>
           <svg
             width="16"
             viewBox="0 0 20 19"
@@ -44,7 +76,7 @@ const ConverterForm = () => {
       </div>
 
       <button className="submit-button">Get Exchange Rate</button>
-      <p className="result">1,000 USD = 83620.80 INR</p>
+      <p className="result">{result}</p>
     </form>
   );
 };
