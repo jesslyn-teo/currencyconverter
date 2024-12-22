@@ -6,6 +6,7 @@ const ConverterForm = () => {
   const [fromCurrency, setFromCurrency] = useState("SGD");
   const [toCurrency, setToCurrency] = useState("SGD");
   const [result, setResult] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // used to handle currency swap
   const handleCurrencySwap = () => {
@@ -18,6 +19,8 @@ const ConverterForm = () => {
     const API_KEY = import.meta.env.VITE_API_KEY;
     const API_URL = `https://v6.exchangerate-api.com/v6/${API_KEY}/pair/${fromCurrency}/${toCurrency}`;
 
+    setIsLoading(true);
+
     try {
       const response = await fetch(API_URL);
       if (!response.ok) throw Error(`Something went wrong, please try again`);
@@ -27,6 +30,8 @@ const ConverterForm = () => {
       setResult(`${amount} ${fromCurrency} = ${rate} ${toCurrency}`);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -41,7 +46,13 @@ const ConverterForm = () => {
     <form className="form" onSubmit={handleFormSubmit}>
       <div className="form-group">
         <label className="form-label">Enter Amount: </label>
-        <input type="number" className="form-input" value={amount} onChange={setAmount} required />
+        <input
+          type="number"
+          className="form-input"
+          value={amount}
+          onChange={setAmount}
+          required
+        />
       </div>
 
       <div className="form-group form-group-currency">
@@ -75,8 +86,13 @@ const ConverterForm = () => {
         </div>
       </div>
 
-      <button className="submit-button">Get Exchange Rate</button>
-      <p className="result">{result}</p>
+      <button
+        type="submit"
+        className={`${isLoading ? "loading" : ""} submit-button`}
+      >
+        Get Exchange Rate
+      </button>
+      <p className="result">{isLoading ? `Getting Exchange Rates ` : result}</p>
     </form>
   );
 };
